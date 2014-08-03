@@ -2,9 +2,9 @@
 from string.tries import Tries
 from collection.serialize import read_list,write_dict
 __author__ = 'renwang.rw'
-in_file_name = "testdata/application/freq"
+in_file_name = "realdata/freq_count/ivr_non_risk.csv"
 out_file_name = in_file_name + "_result"
-pattern_name = "testdata/application/key"
+pattern_name = "realdata/freq_count/keyword_row"
 pattern_list =  read_list(pattern_name)
 pattern_dict = {}
 tries = Tries()
