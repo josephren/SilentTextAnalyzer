@@ -7,5 +7,11 @@ def row_to_line(in_name,out_name,delimiter = ','):
         out_file.write(token + "\n")
     out_file.close()
 
+def get_row_number(in_name):
+    count = 0
+    for line in open(in_name):
+        count += 1
+    return count
+
 if __name__ == "__main__":
-    row_to_line("realdata/freq_count/keyword","realdata/freq_count/keyword_row",delimiter="、")
+    print get_row_number("realdata/freq_count/ivr_non_risk.csv")
