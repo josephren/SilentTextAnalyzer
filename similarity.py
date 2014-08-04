@@ -1,6 +1,5 @@
 import operator
 
-__author__ = 'renwang'
 import numpy as np
 from numpy.linalg import norm
 
@@ -10,7 +9,7 @@ def _to_ppmi(x):
     context_sum = np.diag(1.0 / np.sum(x, 0))
     word_sum = np.diag(1.0 / np.sum(x, 1))
     all_matrix = np.mat(word_sum) * np.mat(x) * np.mat(context_sum) * all_sum
-    all_matrix = np.array(np.log2(all_matrix))
+    all_matrix = np.array(np.log2(allAttributeError: 'module' object has no attribute 'Template'_matrix))
     all_matrix = np.array([[_positive_value(w) for w in row] for row in all_matrix])
     return all_matrix
 
