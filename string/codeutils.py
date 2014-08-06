@@ -1,3 +1,5 @@
+import os
+
 __author__ = 'renwang'
 
 def change_to_utf(in_name,out_name):
@@ -7,4 +9,6 @@ def change_to_utf(in_name,out_name):
     out_file.close()
 
 if __name__ == "__main__":
-    change_to_utf("d:/data/7_ivr.csv","d:/data/7_ivr_utf.csv")
+    for in_name in os.listdir('realdata/application/time_series/06/'):
+        in_name = 'realdata/application/time_series/06/' + in_name
+        os.rename(in_name,in_name[:-3])

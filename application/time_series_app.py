@@ -1,6 +1,7 @@
+# coding=utf-8
 import time
 import sqlite3
-from collection.row_utils import get_word_set
+from collection.format_utils import get_word_set
 from string.tries import Tries
 
 __author__ = 'renwang'
@@ -37,7 +38,14 @@ class CountFreq:
         for chat_record in line.strip().split("|"):
             tokens = chat_record.strip().split(",")
             chat_time = tokens[0].strip()
-            index = from_timestamp_to_index(chat_time,self.base_time)
+            index = None
+
+            try:
+                index = from_timestamp_to_index(chat_time,self.base_time)
+            except ValueError as error:
+                print line, error.message
+                continue
+
             chat_content = tokens[1].strip()
             result = self.tries.search_line(chat_content)
             if len(result) == 0:                continue
@@ -67,7 +75,7 @@ class CountFreq:
             self.word_dict[word][index] += 1
 
     def write_dict_to_db(self):
-        conn = sqlite3.connect('testdata/application/time_series/time.db')
+        conn = sqlite3.connect('realdata/application/time_series/time.db')
         conn.text_factory = str
         date = self.base_time[:10]
         for key in self.word_dict:
@@ -79,18 +87,6 @@ class CountFreq:
 # from_str_to_timestamp('2013-10-10 23:40:00')
 # print from_timestamp_to_index('2013-10-10 00:15:01','2013-10-10 00:00:00')
 
-freq = CountFreq("testdata/application/time_series/key_word", \
-                 "testdata/application/time_series/daily",\
-                 "2014-07-01 00:00:00")
-dict = freq.word_dict
-for key in dict:
-    print key,dict[key]
-
-dict = freq.freq_dict
-for key in dict:
-    print key,dict[key]
-
-conn = sqlite3.connect('testdata/application/time_series/time.db')
-cursor = conn.execute("select * from word_freq")
-for row in cursor:
-    print row[0]
+freq = CountFreq("realdata/application/time_series/key_word", \
+                 "/Users/renwang/Documents/百度云同步盘/work/tme_series/time_series01_trim_remove_remove_last_remove_last_line_remove_last",
+                 "2014-06-01 00:00:00")
